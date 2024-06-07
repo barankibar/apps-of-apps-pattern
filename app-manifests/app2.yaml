@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app2
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/barankibar/apps-of-apps-pattern.git' # OR External Repo URL and PATH
+    path: ./applications/app2/
+    targetRevision: HEAD
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: app2-namespace
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
